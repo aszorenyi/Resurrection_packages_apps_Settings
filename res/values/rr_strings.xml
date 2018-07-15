@@ -1947,7 +1947,9 @@
     <string name="qs_footer_services_title">Show Running Services icon</string>
     <string name="qs_footer_services_summary">Display Running Services icon in quick settings footer</string>
     <string name="qs_footer_settings_title">Show Settings icon</string>
-    <string name="qs_footer_settings_summary">Display Settings icon in quick settings footer</string>   
+    <string name="qs_footer_settings_summary">Display Settings icon in quick settings footer</string> 
+    <string name="qs_footer_disable_edit_title">Hide Edit icon</string>
+    <string name="qs_footer_disable_edit_summary">Hide the tile edit icon in quick settings footer</string>
 
     <!-- Recents Grid -->
     <string name="recents_grid_title">Recents grid</string>
