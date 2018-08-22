@@ -285,7 +285,7 @@
 
   <string name="device_herolte" translatable="false">Galaxy S7</string>
   <string name="device_herolte_codename" translatable="false">SM-G930F/FD/W8/S/K/L</string>
-  <string name="device_herolte_maintainer" translatable="false">schwabe93 </string>
+  <string name="device_herolte_maintainer" translatable="false">Ivan Meler </string>
 
   <string name="device_hero2lte" translatable="false">Galaxy S7 edge</string>
   <string name="device_hero2lte_codename" translatable="false">SM-G935F/FD/W8/S/K/L</string>
@@ -317,7 +317,7 @@
    
   <string name="device_zenfone3" translatable="false">Zenfone 3</string>
   <string name="device_zenfone3_codename" translatable="false">ZE520KL/ZE552KL</string>
-  <string name="device_zenfone3_maintainer" translatable="false">fosseperme</string> 
+  <string name="device_zenfone3_maintainer" translatable="false">Felipe Silva (lipebs)</string> 
 
   <string name="device_fortunave3g" translatable="false">Galaxy Grand Prime</string>
   <string name="device_fortunave3g_codename" translatable="false">SM-G530H</string>
