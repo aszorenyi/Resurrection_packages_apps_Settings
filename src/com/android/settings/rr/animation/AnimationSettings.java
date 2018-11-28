@@ -34,10 +34,12 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
       private static final String KEY_SS_TABS_EFFECT = "tabs_effect";
+      private static final String KEY_SCREEN_OFF_ANIMATION = "screen_off_animation";
   
       ListPreference mListViewTabsEffect;
+      ListPreference mScreenOffAnimation;
 
-	  protected Context mContext;
+      protected Context mContext;
 
       protected ContentResolver mContentRes;
 
@@ -56,6 +58,12 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
         mListViewTabsEffect.setSummary(mListViewTabsEffect.getEntry());
         mListViewTabsEffect.setOnPreferenceChangeListener(this);
 
+        mScreenOffAnimation = (ListPreference) findPreference(KEY_SCREEN_OFF_ANIMATION);
+        int screenOffAnimation = Settings.System.getInt(getContentResolver(),
+                Settings.System.SCREEN_OFF_ANIMATION, 0);
+        mScreenOffAnimation.setValue(String.valueOf(screenOffAnimation));
+        mScreenOffAnimation.setSummary(mScreenOffAnimation.getEntry());
+        mScreenOffAnimation.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -66,6 +74,15 @@ public class AnimationSettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(),
                      Settings.System.RR_SETTINGS_TABS_EFFECT, value);
             mListViewTabsEffect.setSummary(mListViewTabsEffect.getEntries()[index]);
+            return true;
+         }
+         
+         if (preference == mScreenOffAnimation) {
+            int value = Integer.valueOf((String) newValue);
+            int index = mScreenOffAnimation.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.SCREEN_OFF_ANIMATION, value);
+            mScreenOffAnimation.setSummary(mScreenOffAnimation.getEntries()[index]);
             return true;
          }
         return false;
