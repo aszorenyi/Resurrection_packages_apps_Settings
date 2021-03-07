@@ -30,6 +30,7 @@ import android.view.View;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 
 import com.android.settings.rr.Preferences.SystemSettingSwitchPreference;
+import com.android.settings.rr.Preferences.SystemSettingListPreference;
 import lineageos.preference.LineageSystemSettingListPreference;
 
 import com.android.settings.R;
@@ -47,7 +48,14 @@ public class QsPullDown extends SettingsPreferenceFragment implements
     private static final int PULLDOWN_DIR_RIGHT = 1;
     private static final int PULLDOWN_DIR_LEFT = 2;
 
+    private static final String STATUS_BAR_SMART_PULLDOWN = "qs_smart_pulldown";
+    private static final int SMART_PULLDOWN_OFF = 0;
+    private static final int SMART_PULLDOWN_DISMISSABLE = 1;
+    private static final int SMART_PULLDOWN_ONGOING = 2;
+    private static final int SMART_PULLDOWN_NONE = 3;
+
     private LineageSystemSettingListPreference mQuickPulldown;
+    private SystemSettingListPreference mSmartPulldown;
 
     @Override
     public int getMetricsCategory() {
@@ -65,6 +73,13 @@ public class QsPullDown extends SettingsPreferenceFragment implements
                 (LineageSystemSettingListPreference) findPreference(STATUS_BAR_QUICK_QS_PULLDOWN);
         mQuickPulldown.setOnPreferenceChangeListener(this);
         updateQuickPulldownSummary(mQuickPulldown.getIntValue(0));
+
+        mSmartPulldown =
+                (SystemSettingListPreference) findPreference(STATUS_BAR_SMART_PULLDOWN);
+        final int smartPulldown = Settings.System.getInt(resolver,
+            Settings.System.QS_SMART_PULLDOWN, 0);
+        updateSmartPulldownSummary(smartPulldown);
+        mSmartPulldown.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -72,8 +87,10 @@ public class QsPullDown extends SettingsPreferenceFragment implements
         int value = Integer.parseInt((String) newValue);
         if (preference == mQuickPulldown) {
             updateQuickPulldownSummary(value);
+        } else if (preference == mSmartPulldown) {
+            updateSmartPulldownSummary(value);
         }
-		return true;
+        return true;
     }
 
     @Override
@@ -99,6 +116,29 @@ public class QsPullDown extends SettingsPreferenceFragment implements
                 break;
         }
         mQuickPulldown.setSummary(summary);
+    }
+
+    private void updateSmartPulldownSummary(int value) {
+        final Resources res = getResources();
+
+        String summary="";
+        switch (value) {
+            case SMART_PULLDOWN_OFF:
+                summary = res.getString(R.string.smart_pulldown_off_summary);
+                break;
+            case SMART_PULLDOWN_DISMISSABLE:
+                final String dismissableSummary = res.getString(R.string.smart_pulldown_dismissable);
+                summary = res.getString(R.string.smart_pulldown_summary, dismissableSummary);
+                break;
+            case SMART_PULLDOWN_ONGOING:
+                final String ongoingSummary = res.getString(R.string.smart_pulldown_ongoing);
+                summary = res.getString(R.string.smart_pulldown_summary, ongoingSummary);
+                break;
+            case SMART_PULLDOWN_NONE:
+                summary = res.getString(R.string.smart_pulldown_none_summary);
+                break;
+        }
+        mSmartPulldown.setSummary(summary);
     }
 
     public static final SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =

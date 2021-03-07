@@ -443,6 +443,7 @@
     <string name="smart_pulldown_none_summary">Open quick settings when there are no notifications</string>
     <string name="smart_pulldown_off_summary">Is turned off</string>
 
+
     <!-- Status bar - icons -->
     <string name="status_bar_icons_title">Status bar icons</string>
     <string name="status_bar_notif_count_title">Show notification count</string>
